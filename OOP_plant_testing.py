@@ -1,7 +1,10 @@
 class PlantArea:
     # class attribute
+    plant_active = False
     total_operation_time = 0.0
     number_of_control_panels = 3 #number of control panels which are attached to each machine
+    control_panel_x_size = 25.0 #30 cm width for the panel
+    control_panel_y_size = 40.0 #40 cm width for the panel
     def __init__(self, name: str, num_of_machines = 5, machine_x_size = 300.0, machine_y_size = 253.5): #creating a constractor, it's one of the magic methods
         # print(f"An area instance created: {name}") #creating unique identifier for indication where it came from with the barckets
         # run validations to the received arguments
@@ -16,11 +19,13 @@ class PlantArea:
         self.machine_y_size = machine_y_size
         # when we pass a default value we also declare the variable type we want to pass
     def calculate_total_used_space(self): #we have to send at least one parameter on every method and the 
-        return (self.machine_x_size/100.0) * (self.machine_y_size/100.0) * self.num_of_machines
+        return (self.machine_x_size/100.0) * (self.machine_y_size/100.0) * self.num_of_machines \
+            + (self.control_panel_y_size/100.0) * (self.control_panel_x_size/100.0) * self.number_of_control_panels 
         # common convention is self, here is the main power of using the self we pass with it's atttributes
         
     def calculate_total_operation_time(self):
-        pass
+        if PlantArea.plant_active:
+            PlantArea.total_operation_time += 0.01
 
 plant_area1 = PlantArea("area1")
 # plant_area1.num_of_machines = 12
@@ -35,12 +40,18 @@ plant_area2 = PlantArea("area2", 65, 500.0, 357.5)
 #even if we use constractors we can assign additional attributes outside of them
 
 plant_area2.outside_plant = True #this attribute is not part of the constractor
-print(plant_area2.outside_plant)
+# print(plant_area2.outside_plant)
 
-print(PlantArea.number_of_control_panels) #because this is a class attribute, we can get into it from the class itself
-print(plant_area1.number_of_control_panels) #because the instances weren't able to find the attribute from the 
-# instance level they searched for that in class level
-print(plant_area2.number_of_control_panels)
+# print(PlantArea.number_of_control_panels) #because this is a class attribute, we can get into it from the class itself
+# print(plant_area1.number_of_control_panels) #because the instances weren't able to find the attribute from the 
+# # instance level they searched for that in class level
+# print(plant_area2.number_of_control_panels)
 
-print(PlantArea.__dict__) #print all the attributes in the class level, converting all attributes to dictionary
-print(plant_area1.__dict__) #print all the attributes in the instance level, converting all attributes to dictionary
+# print(PlantArea.__dict__) #print all the attributes in the class level, converting all attributes to dictionary
+# print(plant_area1.__dict__) #print all the attributes in the instance level, converting all attributes to dictionary
+
+# print(f"total used space in [m] is: {plant_area1.calculate_total_used_space()}")
+plant_area1.control_panel_x_size = 20.0
+plant_area1.control_panel_y_size = 50.0
+plant_area1.number_of_control_panels = 12
+print(f"total used space in [m] is: {plant_area1.calculate_total_used_space()}")
