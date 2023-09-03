@@ -32,6 +32,10 @@ class PlantArea:
         if PlantArea.plant_active:
             PlantArea.total_operation_time += 0.01
 
+    def __repr__(self):
+        return f"PlantArea('{self.name}', '{self.num_of_machines}', '{self.machine_x_size}', '{self.machine_y_size}')" #best practice, this way we can copy from the console and create
+    # the instance
+
 plant_area1 = PlantArea("Area1")
 plant_area2 = PlantArea("Area2", 15, 500.0, 357.5)
 plant_area3 = PlantArea("Outside storage", 30, 450.0, 512.25)
@@ -45,5 +49,6 @@ plant_area1.control_panel_y_size = 50.0
 plant_area1.number_of_control_panels = 12
 # print(f"total used space in [m] is: {plant_area1.calculate_total_used_space()}")
 
-for Instance in PlantArea.all:
-    print(Instance.name)
+print(PlantArea.all)
+# for Instance in PlantArea.all:
+#     print(Instance.name)
