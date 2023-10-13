@@ -1,3 +1,5 @@
+import csv
+
 class Item:
     pay_rate = 0.8 # The pay rate after 20% discount
     all = [] #empty list to list all the items we have in the shop
@@ -24,15 +26,28 @@ class Item:
         return f"Item('{self.name}', '{self.price}', '{self.quantity}')" #best practice, this way we can copy from the console and create
     # the instance
 
+    @classmethod
+    def instantiate_from_csv(cls): 
+        with open('items.csv','r') as f: #reading the parameters as dictionary
+            reader = csv.DictReader(f) #reading the content as a list of dictionaries
+            items = list(reader) #converting the dictionary to list
 
+        for item in items:
+            Item(
+                name = item.get('name'),
+                price = float(item.get('price')),
+                quantity = int(item.get('quantity')),
+            )
+            # now we are able to instantiate each object
+            # print(item)
+        
+        # we need to pass at least 1 parameter from each method (if method of instance), 
+        # this 
+        # method is actually meant to instantiate the object so we can't use it inside the object
 
-item1 = Item("Phone", 100, 1)
-item2 = Item("Laptop", 1000, 3)
-item3 = Item("Cable", 10, 5)
-item4 = Item("Mouse", 50, 5)
-item5 = Item("Keyboard", 75, 5)
 
 # for instance in Item.all:
 #     print(f"name of instance is:{instance.name}")
 
+Item.instantiate_from_csv()
 print(Item.all)
