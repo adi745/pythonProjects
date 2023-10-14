@@ -49,5 +49,18 @@ class Item:
 # for instance in Item.all:
 #     print(f"name of instance is:{instance.name}")
 
-Item.instantiate_from_csv()
-print(Item.all)
+    @staticmethod
+    def is_integer(num):
+        # we will count out the floats that are point zero
+        # i.e: 5.0, 2.0
+        if isinstance(num, float):
+            return num.is_integer()
+        elif isinstance(num, int):
+            return True
+        else:
+            return False
+
+
+# Item.instantiate_from_csv()
+# print(Item.all)
+print(Item.is_integer(7.0))
