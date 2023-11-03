@@ -17,3 +17,7 @@ class Phone(Item):
 # phone2 = Phone("GalaxyAdi0110", 300, 3, 1)
 # print(Phone.all)
 # print(Item.all)
+item1 = Item("OtherItem", 750)
+print(item1.name)
+item1.__name = "Hello"
+print(item1.name)

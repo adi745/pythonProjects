@@ -9,13 +9,23 @@ class Item:
         assert quantity >= 0, f"Quantity {quantity} is not greater or equal to zero!"
 
         # Assign to self object
-        self.name = name
+        self.__name = name
         self.price = price
         self.quantity = quantity
 
         # Actions to execute
         Item.all.append(self) #appending each instance
 
+    @property
+    # property decorator - read only attribute
+    def name(self):
+        return self.__name
+    
+    @name.setter
+    # one way to still apply new values is with setter
+    def name(self, value):
+        self.__name = value
+    
     def calculate_total_price(self):
         return self.price * self.quantity
 
@@ -59,4 +69,3 @@ class Item:
             return True
         else:
             return False
-
